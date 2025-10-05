@@ -1,0 +1,9 @@
+{
+  "pool": "AaveV3Avalanche",
+  "riskUpdate": "CapsUpdates",
+  "asset": "USDT",
+  "parameters": {
+    "supplyCap": 1,
+    "borrowCap": 1
+  }
+}
