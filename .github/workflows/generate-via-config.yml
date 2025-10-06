@@ -2,7 +2,13 @@ name: Generate Files Via Generator Config
 
 on:
   pull_request:
-    types: [opened]
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
   generate-and-push:
@@ -16,10 +22,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js and pnpm
-        uses: ./.github/actions/setup-node
-      
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        uses: bgd-labs/github-workflows/.github/actions/setup-node@main
       
       - name: Get changed files
         id: changed-files
