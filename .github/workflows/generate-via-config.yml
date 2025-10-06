@@ -51,7 +51,7 @@ jobs:
           
           echo "Found config file: $CONFIG_FILE"
           echo "config_path=$CONFIG_FILE" >> $GITHUB_OUTPUT
-          pnpm run generate -- --configFile "$CONFIG_FILE"
+          pnpm run generate --configFile "$CONFIG_FILE"
       
       - name: Check for changes
         id: git-check
