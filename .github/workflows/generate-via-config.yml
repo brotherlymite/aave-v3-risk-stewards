@@ -1,0 +1,62 @@
+name: Generate Files Via Generator Config
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  generate-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js and pnpm
+        uses: bgd-labs/github-workflows/.github/actions/setup-node@main
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/*config.ts
+
+      - name: Validate and run generator
+        id: generate
+        run: |
+          if [ -z "${{ steps.changed-files.outputs.all_changed_files }}" ]; then
+            echo "No config.ts files found in PR changes"
+            echo "skipped=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          CONFIG_FILE="${{ steps.changed-files.outputs.all_changed_files }}"
+          CONFIG_COUNT=$(echo "$CONFIG_FILE" | wc -w)
+          
+          if [ "$CONFIG_COUNT" -gt 1 ]; then
+            echo "Error: Multiple config.ts files found: $CONFIG_FILE"
+            echo "Please include only one config.ts file in your PR"
+            exit 1
+          fi
+
+          echo "Found config file: $CONFIG_FILE"
+          echo "config_path=$CONFIG_FILE" >> $GITHUB_OUTPUT
+          pnpm run generate --configFile "$CONFIG_FILE"
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true' && steps.generate.outputs.skipped != 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "chore: auto-generate files from ${{ steps.generate.outputs.config_path }}"
+          git push
