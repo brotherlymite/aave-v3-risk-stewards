@@ -2,7 +2,13 @@ name: Generate Files Via Generator Config
 
 on:
   pull_request:
-    types: [opened]
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
   generate-and-push:
