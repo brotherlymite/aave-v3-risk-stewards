@@ -1,5 +1,4 @@
-import {ConfigFile} from '../../../../generator/types';
-
+import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/contracts/updates/20251016_AaveV3Optimism_CollateralUpdates/config.ts',
@@ -13,8 +12,19 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV3Optimism: {
-      configs: {COLLATERALS_UPDATE: [{asset: 'WETH', ltv: '77', liqThreshold: '79', liqBonus: '5', debtCeiling: '0', liqProtocolFee: '10'}]},
-      cache: { },
+      configs: {
+        COLLATERALS_UPDATE: [
+          {
+            asset: 'WETH',
+            ltv: '77',
+            liqThreshold: '79',
+            liqBonus: '5',
+            debtCeiling: '0',
+            liqProtocolFee: '10',
+          },
+        ],
+      },
+      cache: {},
     },
   },
 };
