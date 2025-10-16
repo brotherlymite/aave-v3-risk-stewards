@@ -1,5 +1,4 @@
-import {ConfigFile} from '../../../../generator/types';
-
+import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/contracts/updates/20251016_AaveV3EthereumLido_EModesUpdate/config.ts',
@@ -13,8 +12,10 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV3EthereumLido: {
-      configs: {EMODES_UPDATE: [{eModeCategory: '2', ltv: '90', liqThreshold: '', liqBonus: '', label: ''}]},
-      cache: { },
+      configs: {
+        EMODES_UPDATE: [{eModeCategory: '2', ltv: '90', liqThreshold: '', liqBonus: '', label: ''}],
+      },
+      cache: {},
     },
   },
 };
