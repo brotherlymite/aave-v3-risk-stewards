@@ -1,5 +1,4 @@
-import {ConfigFile} from '../../../../generator/types';
-
+import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/contracts/updates/20251016_AaveV3EthereumLido_RateUpdateV3/config.ts',
@@ -13,8 +12,20 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV3EthereumLido: {
-      configs: {RATE_UPDATE_V3: [{asset: 'WETH', params: {optimalUtilizationRate: '90', baseVariableBorrowRate: '3', variableRateSlope1: '2', variableRateSlope2: '41'}}]},
-      cache: { },
+      configs: {
+        RATE_UPDATE_V3: [
+          {
+            asset: 'WETH',
+            params: {
+              optimalUtilizationRate: '90',
+              baseVariableBorrowRate: '3',
+              variableRateSlope1: '2',
+              variableRateSlope2: '41',
+            },
+          },
+        ],
+      },
+      cache: {},
     },
   },
 };
