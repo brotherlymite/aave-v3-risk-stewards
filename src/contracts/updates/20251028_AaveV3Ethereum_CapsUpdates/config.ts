@@ -1,5 +1,4 @@
-import {ConfigFile} from '../../../../generator/types';
-
+import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/contracts/updates/20251028_AaveV3Ethereum_CapsUpdates/config.ts',
@@ -14,7 +13,7 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {
       configs: {CAPS_UPDATE: [{asset: 'WETH', supplyCap: '1', borrowCap: '1'}]},
-      cache: { },
+      cache: {},
     },
   },
 };
